@@ -36,7 +36,7 @@ class Forms {
     validatePassword() {
         let password = this.getInputs().password;
         let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-        // return password.value.match(passw);
+        return password.value.match(passw);
         return true;
     }
     submitFetch = async function postData(data) {
