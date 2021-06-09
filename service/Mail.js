@@ -1,4 +1,4 @@
-  
+
 const nodemailer = require('nodemailer');
 
 async function sendMail(email, code) {
@@ -9,13 +9,13 @@ async function sendMail(email, code) {
         port: 465,
         secure: true,
         auth: {
-            user: 'serhii.lysytskyi@ukd.edu.ua',
-            pass: "43Ger2WaeDdXXRJo"
+            user: 'reddred6789@gmail.com',
+            pass: "whiskysilver550"
         }
     });
 
     let result = await transporter.sendMail({
-        from: '"Администрация Mytest.com" <serhii.lysytskyi@ukd.edu.ua>',
+        from: 'Администрация Mytest.com <reddred6789@gmail.com>',
         to: `${email}`,
         subject: "Подтверждение из сайта Mytest.com",
         text: "Вы изменяете данные",

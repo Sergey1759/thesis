@@ -17,7 +17,7 @@ class Forms {
             event.preventDefault();
             func(this.elem);
         });
-    } 
+    }
     getInputs() {
         let inputs = this.elem.querySelectorAll('input');
         let obj = {};
@@ -59,11 +59,41 @@ class Forms {
         } else {
             m = response
         }
-        return m // parses JSON response into native JavaScript objects
+
+        return m
     }
 }
- 
+
 let SignInForm = new Forms('sign');
+let SignUpForm = new Forms('sign_up');
+
+SignUpForm.submit(async (elem) => {
+    let inputs = SignUpForm.getInputs();
+    if (!SignUpForm.validateEmail()) {
+        inputs.email.placeholder = 'ведите коректный email';
+        inputs.email.value = '';
+        // inputs.email.parentElement.classList.add('danger_placeholder');
+    }
+
+    if (!SignUpForm.validatePassword()) {
+        inputs.password.placeholder = 'ведите коректный пароль';
+        inputs.password.value = '';
+        // inputs.password.parentElement.classList.add('danger_placeholder');
+    }
+
+    if (SignUpForm.validatePassword() && SignUpForm.validateEmail()) {
+        let m = await SignUpForm.submitFetch({
+            email: inputs.email.value,
+            password: inputs.password.value,
+        });
+        if (m.message) {
+            MyError(m.message);
+        } else {
+            location.reload(true);
+        }
+    }
+});
+
 SignInForm.submit(async (elem) => {
     let inputs = SignInForm.getInputs();
     if (!SignInForm.validateEmail()) {
@@ -88,7 +118,7 @@ SignInForm.submit(async (elem) => {
             code: inputs.code.value,
             phone: inputs.phone.value
         });
-    
+
         if (m.message) {
             MyError(m.message);
         } else {
@@ -96,6 +126,8 @@ SignInForm.submit(async (elem) => {
         }
     }
 });
+
+
 
 function MyError(message){
     alert(message);
