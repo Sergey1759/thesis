@@ -21,19 +21,16 @@ router.get('/login', function(req, res, next) {
 
 
 router.post('/login', function(req, res, next) {
-
-  console.log(req.body);
+  if (req.session.user) return res.redirect('/');
+  // console.log(req.body);
   ApiUser.checkUser(req.body)
       .then(function (user) {
-        console.log(1111111111111111111);
         if (user) {
           req.session.user = {
             id: user._id,
             name: user.name,
             group: user.group,
           }
-
-
           res.redirect('/')
         } else {
           console.log(2);
@@ -43,10 +40,10 @@ router.post('/login', function(req, res, next) {
       })
       .catch(function (error) {
         console.log(3);
-        // res.status(200).json({
-        //   answer: "неверный логин или пароль"
-        // });
-        // return next(error)
+        res.status(200).json({
+          answer: "неверный логин или пароль"
+        });
+        return next(error)
       })
 });
 
@@ -73,11 +70,11 @@ router.post('/sign_post',async function(req, res, next) {
 });
 
 
-router.get('/re-rent', async function(req, res, next) {
+router.get('/re-rent', midleware, async function(req, res, next) {
   res.render('re-rent', { title: 'Express' });
 });
 
-router.get('/to-sold', function(req, res, next) {
+router.get('/to-sold', midleware,function(req, res, next) {
   res.render('to-sold', { title: 'Express' });
 });
 
@@ -85,11 +82,19 @@ router.get('/category', function(req, res, next) {
   res.render('category', { title: 'Express' });
 });
 
-// function midleware (req, res, next) {
-//   if(req.session.user){ next();
-//   } else {
-//     res.redirect('/');
-//   }
-// };
+router.post('/logout', function (req, res, next) {
+  if (req.session.user) {
+    delete req.session.user;
+    res.redirect('/')
+  }
+});
+
+
+function midleware (req, res, next) {
+  if(req.session.user){ next();
+  } else {
+    res.redirect('/');
+  }
+};
 
 module.exports = router;
