@@ -4,6 +4,7 @@ const ApiUser = require('../Api/User');
 const {sendMail} = require('../service/Mail');
 
 let randomstring = require("randomstring");
+let {midlle_for_multer} = require("../service/save");
 
 
 
@@ -21,6 +22,11 @@ router.get('/login', function(req, res, next) {
 router.get('/some1', function(req, res, next) {
   res.render('some1', { title: 'Express' });
 });
+
+router.get('/redirect', function(req, res, next) {
+  res.render('redirect', { title: 'Express' });
+});
+
 
 
 router.get('/some2', function(req, res, next) {
@@ -85,15 +91,21 @@ router.get('/re-rent', midleware, async function(req, res, next) {
   res.render('re-rent', { title: 'Express' });
 });
 
+router.post('/re-rent', midleware, midlle_for_multer,  async function(req, res, next) {
+  console.log(req.body);
+});
+
 router.get('/to-sold', midleware,function(req, res, next) {
   res.render('to-sold', { title: 'Express' });
 });
+
+//midlle_for_multer
 
 router.get('/category', function(req, res, next) {
   res.render('category', { title: 'Express' });
 });
 
-router.post('/logout', function (req, res, next) {
+router.get('/logout', function (req, res, next) {
   if (req.session.user) {
     delete req.session.user;
     res.redirect('/')
@@ -104,7 +116,7 @@ router.post('/logout', function (req, res, next) {
 function midleware (req, res, next) {
   if(req.session.user){ next();
   } else {
-    res.redirect('/');
+    res.redirect('/redirect');
   }
 };
 

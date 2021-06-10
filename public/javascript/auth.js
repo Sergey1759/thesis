@@ -66,6 +66,23 @@ class Forms {
 
 let SignInForm = new Forms('sign');
 let SignUpForm = new Forms('sign_up');
+let create_order = new Forms('create_order');
+
+create_order.submit(async (elem) => {
+    let inputs = create_order.getInputs();
+
+        let m = await create_order.submitFetch({
+            email: inputs.email.value,
+            password: inputs.password.value,
+        });
+        if (m.message) {
+            MyError(m.message);
+        } else {
+            location.reload(true);
+        }
+
+});
+
 
 SignUpForm.submit(async (elem) => {
     let inputs = SignUpForm.getInputs();
