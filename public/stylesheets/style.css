@@ -726,3 +726,54 @@ textarea:focus {
   background: none repeat scroll 0 0 #FFFFFF;
   outline-width: 0;
 }
+
+
+
+
+.card__container{
+  margin-top: 20px;
+  box-shadow: 0 4px 16px rgba(51, 51, 51, 0.63);
+  padding: 30px;
+  margin-bottom: 40px;
+} 
+
+.card__photo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+}
+
+.card__img{
+  width: 100vw;
+  height: 70vh;
+  background-image: url(../images/new/sport.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  }
+
+
+.card__call{
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.card__name{
+  font-size: 27px;
+}
+
+.card__price{
+  margin-top: 20px;
+  font-size: 26px;
+}
+
+.card__description-title{
+  margin-top: 20px;
+}
+
+.card__description-text{
+  margin-top: 20px;
+  font-size: 20px;
+}

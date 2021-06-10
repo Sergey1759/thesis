@@ -54,12 +54,12 @@ router.get('/redirect', function(req, res, next) {
 
 
 
-router.get('/some2', function(req, res, next) {
-  res.render('some2', { title: 'Express' });
+router.get('/profile', function(req, res, next) {
+  res.render('profile', { title: 'Express' });
 });
 
-router.get('/some3', function(req, res, next) {
-  res.render('some3', { title: 'Express' });
+router.get('/card', function(req, res, next) {
+  res.render('card', { title: 'Express' });
 });
 
 router.post('/login', function(req, res, next) {
