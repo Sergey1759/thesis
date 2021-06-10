@@ -9,8 +9,10 @@
 
 
 class Forms {
-    constructor(id) {
+    constructor(id,ContentType = "application/json") {
         this.elem = document.getElementById(id);
+        this.ContentType = ContentType;
+        console.log(ContentType);
     }
     submit(func) {
         this.elem.addEventListener('submit', (event) => {
@@ -46,7 +48,7 @@ class Forms {
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'include', // include, *same-origin, omit
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': this.ContentType
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             redirect: 'follow', // manual, *follow, error
@@ -66,15 +68,33 @@ class Forms {
 
 let SignInForm = new Forms('sign');
 let SignUpForm = new Forms('sign_up');
-let create_order = new Forms('create_order');
+let create_order = new Forms('create_order', 'multipart/form-data');
 
 create_order.submit(async (elem) => {
-    let inputs = create_order.getInputs();
 
-        let m = await create_order.submitFetch({
-            email: inputs.email.value,
-            password: inputs.password.value,
-        });
+    let file = document.getElementById('image');
+    let form_data = new FormData();
+    form_data.append('avatar', 'dsfasd');
+    console.log(form_data);
+    console.log(file.files[0]);
+    let inputs = create_order.getInputs();
+        let text = document.querySelector('#comment_text').value;
+        console.log(text);
+        let data = {
+            tovar: inputs.tovar.value,
+            text,
+            price: inputs.price.value,
+            image: form_data
+            }
+    let res = await axios.post(`/re-rent'`, data);
+console.log(res);
+        let m = await create_order.submitFetch(form_data //{
+            // tovar: inputs.tovar.value,
+            // text,
+            // price: inputs.price.value,
+            // image: form_data
+        //}
+        );
         if (m.message) {
             MyError(m.message);
         } else {
