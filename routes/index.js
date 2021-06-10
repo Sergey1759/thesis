@@ -18,7 +18,18 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
+router.get('/some1', function(req, res, next) {
+  res.render('some1', { title: 'Express' });
+});
 
+
+router.get('/some2', function(req, res, next) {
+  res.render('some2', { title: 'Express' });
+});
+
+router.get('/some3', function(req, res, next) {
+  res.render('some3', { title: 'Express' });
+});
 
 router.post('/login', function(req, res, next) {
   if (req.session.user) return res.redirect('/');
